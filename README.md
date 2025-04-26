@@ -24,7 +24,11 @@ uv add -r requirements.txt
 uv remove pandas
 
 6. Save all dependencies in current working project into requirements.txt:
+# With specific versions
 uv export --no-hashes --format requirements-txt > requirements.txt
+
+# Without versions
+uv export --no-hashes --format requirements-txt | grep -v "^#" | cut -d'=' -f1 | cut -d'>' -f1 | cut -d'<' -f1 | sed 's/[[:space:]]*$//' > requirements.txt
 
 7. Update the project lockfile:
 uv lock
